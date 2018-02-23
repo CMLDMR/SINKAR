@@ -32,3 +32,20 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+
+
+
+
+LIBS += -L$$PWD/../mongocxx/lib/ -llibbsoncxx.dll
+
+INCLUDEPATH += $$PWD/../mongocxx/include/bsoncxx/v_noabi
+DEPENDPATH += $$PWD/../mongocxx/include/bsoncxx/v_noabi
+
+
+
+
+LIBS += -L$$PWD/../mongocxx/lib/ -llibmongocxx.dll
+
+INCLUDEPATH += $$PWD/../mongocxx/include/mongocxx/v_noabi
+DEPENDPATH += $$PWD/../mongocxx/include/mongocxx/v_noabi
