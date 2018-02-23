@@ -17,6 +17,9 @@
 #include "../snkkey.h"
 #include "mongoheaders.h"
 
+#include <QStandardItem>
+#include <QStandardItemModel>
+
 
 using bsoncxx::builder::basic::document;
 using bsoncxx::builder::basic::kvp;
@@ -47,12 +50,24 @@ private slots:
     void setstatus(mongocxx::exception &e);
     void setstatus(QString e);
 
+    void on_pushButton_Refresh_clicked();
+
+    void on_tableView_clicked(const QModelIndex &index);
+
+    void on_pushButton_addNew_clicked();
+
+    void on_pushButton_delete_clicked();
+
 private:
     Ui::PersonelDialog *ui;
 
     void saveNew();
 
     mongocxx::database* db;
+
+    QStandardItemModel *mModel;
+    void removeRows();
+    void refreshList();
 };
 
 #endif // PERSONELDIALOG_H

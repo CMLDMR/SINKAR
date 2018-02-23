@@ -19,12 +19,12 @@
      <rect>
       <x>50</x>
       <y>40</y>
-      <width>681</width>
-      <height>321</height>
+      <width>201</width>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
+     <item row="0" column="1">
       <widget class="QPushButton" name="pushButton_Personel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -34,6 +34,19 @@
        </property>
        <property name="text">
         <string>Personel Yönetimi</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_options">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Ayarlar</string>
        </property>
       </widget>
      </item>

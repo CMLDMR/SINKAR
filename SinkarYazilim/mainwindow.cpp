@@ -59,3 +59,8 @@ void MainWindow::on_pushButton_Personel_clicked()
 
 
 }
+
+void MainWindow::on_pushButton_options_clicked()
+{
+
+}

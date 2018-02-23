@@ -31,6 +31,7 @@ public:
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
     QPushButton *pushButton_Personel;
+    QPushButton *pushButton_options;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -44,7 +45,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(50, 40, 681, 321));
+        gridLayoutWidget->setGeometry(QRect(50, 40, 201, 121));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -58,7 +59,14 @@ public:
         sizePolicy.setHeightForWidth(pushButton_Personel->sizePolicy().hasHeightForWidth());
         pushButton_Personel->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButton_Personel, 0, 0, 1, 1);
+        gridLayout->addWidget(pushButton_Personel, 0, 1, 1, 1);
+
+        pushButton_options = new QPushButton(gridLayoutWidget);
+        pushButton_options->setObjectName(QStringLiteral("pushButton_options"));
+        sizePolicy.setHeightForWidth(pushButton_options->sizePolicy().hasHeightForWidth());
+        pushButton_options->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(pushButton_options, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -82,6 +90,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton_Personel->setText(QApplication::translate("MainWindow", "Personel Y\303\266netimi", nullptr));
+        pushButton_options->setText(QApplication::translate("MainWindow", "Ayarlar", nullptr));
     } // retranslateUi
 
 };

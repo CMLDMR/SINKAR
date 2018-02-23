@@ -74,6 +74,11 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         tableView = new QTableView(groupBox);
         tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableView->setAlternatingRowColors(true);
+        tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+        tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tableView->horizontalHeader()->setStretchLastSection(true);
 
         verticalLayout->addWidget(tableView);
 
@@ -190,7 +195,7 @@ public:
 
     void retranslateUi(QDialog *PersonelDialog)
     {
-        PersonelDialog->setWindowTitle(QApplication::translate("PersonelDialog", "Dialog", nullptr));
+        PersonelDialog->setWindowTitle(QApplication::translate("PersonelDialog", "Personel Y\303\266netimi", nullptr));
         groupBox->setTitle(QApplication::translate("PersonelDialog", "Personel Listesi", nullptr));
         pushButton_delete->setText(QApplication::translate("PersonelDialog", "Sil", nullptr));
         pushButton_Refresh->setText(QApplication::translate("PersonelDialog", "Yenile", nullptr));
