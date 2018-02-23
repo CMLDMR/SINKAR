@@ -9,6 +9,9 @@
 #include <QtGui/QMainWindow>
 #endif
 
+
+#include "../snkkey.h"
+
 namespace Ui {
 class MainWindow;
 }

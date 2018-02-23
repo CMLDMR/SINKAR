@@ -28,7 +28,9 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    mongoheaders.h \
+    ../snkkey.h
 
 FORMS += \
         mainwindow.ui
@@ -49,3 +51,6 @@ LIBS += -L$$PWD/../mongocxx/lib/ -llibmongocxx.dll
 
 INCLUDEPATH += $$PWD/../mongocxx/include/mongocxx/v_noabi
 DEPENDPATH += $$PWD/../mongocxx/include/mongocxx/v_noabi
+
+INCLUDEPATH += $$PWD/../
+DEPENDPATH += $$PWD/../
