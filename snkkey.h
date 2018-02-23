@@ -16,10 +16,20 @@
 
 
 namespace SNKKey {
+
+
     static std::string dburl{"mongodb://sinkar:<sinKar><SerikBlD1926>@192.168.0.215:27018/?authSource=SINKAR"};
     static std::string db{"SINKAR"};
 
 
+    namespace Personel {
+        static std::string collection{"Personel"};
+        static std::string ad{"Ad"};
+        static std::string soyad{"Soyad"};
+        static std::string username{"Kullanıcı Adı"};
+        static std::string pasword{"Şifre"};
+        static std::string oid{"_id"};
+    }
 
 
 

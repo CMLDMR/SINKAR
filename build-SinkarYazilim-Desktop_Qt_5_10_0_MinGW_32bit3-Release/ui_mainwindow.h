@@ -13,9 +13,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -25,27 +27,50 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QWidget *centralWidget;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
+    QPushButton *pushButton_Personel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
-    QWidget *centralWidget;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(400, 300);
+        MainWindow->resize(857, 486);
+        centralWidget = new QWidget(MainWindow);
+        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        gridLayoutWidget = new QWidget(centralWidget);
+        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(50, 40, 681, 321));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        pushButton_Personel = new QPushButton(gridLayoutWidget);
+        pushButton_Personel->setObjectName(QStringLiteral("pushButton_Personel"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pushButton_Personel->sizePolicy().hasHeightForWidth());
+        pushButton_Personel->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(pushButton_Personel, 0, 0, 1, 1);
+
+        MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 857, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(mainToolBar);
-        centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        MainWindow->setCentralWidget(centralWidget);
+        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
+        statusBar->setEnabled(true);
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
@@ -56,6 +81,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        pushButton_Personel->setText(QApplication::translate("MainWindow", "Personel Y\303\266netimi", nullptr));
     } // retranslateUi
 
 };

@@ -25,15 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    personel/personeldialog.cpp
 
 HEADERS += \
         mainwindow.h \
     mongoheaders.h \
-    ../snkkey.h
+    ../snkkey.h \
+    personel/personeldialog.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    personel/personeldialog.ui
 
 
 

@@ -10,7 +10,21 @@
 #endif
 
 
+
+#include <QLabel>
+#include <QProgressBar>
+
+
+
 #include "../snkkey.h"
+#include "mongoheaders.h"
+
+
+using bsoncxx::builder::basic::document;
+using bsoncxx::builder::basic::kvp;
+using bsoncxx::builder::basic::array;
+using bsoncxx::builder::basic::make_document;
+using bsoncxx::builder::basic::make_array;
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +40,16 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    mongocxx::client* Client;
+
+
+private slots:
+
+    void setMessage(const char* message);
+
+
+    void on_pushButton_Personel_clicked();
 };
 
 #endif // MAINWINDOW_H
