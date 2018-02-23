@@ -13,9 +13,9 @@
 # limitations under the License.
 
 set (BSON_STATIC_MAJOR_VERSION 1)
-set (BSON_STATIC_MINOR_VERSION 9)
+set (BSON_STATIC_MINOR_VERSION 8)
 set (BSON_STATIC_MICRO_VERSION 2)
-set (BSON_STATIC_VERSION 1.9.2)
+set (BSON_STATIC_VERSION 1.8.2)
 
 # In a pure-CMake project this is inserted by configure_package_config_file(),
 # but we want to be able to build this file the same from the Autotools, so

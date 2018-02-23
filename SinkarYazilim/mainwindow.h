@@ -42,6 +42,7 @@ private:
     Ui::MainWindow *ui;
 
     mongocxx::client* Client;
+    mongocxx::database db;
 
 
 private slots:

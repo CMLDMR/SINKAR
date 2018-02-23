@@ -30,6 +30,7 @@ QT_BEGIN_NAMESPACE
 class Ui_PersonelDialog
 {
 public:
+    QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout;
@@ -50,16 +51,19 @@ public:
     QLineEdit *lineEdit_surname;
     QLineEdit *lineEdit_username;
     QLineEdit *lineEdit_password;
-    QLineEdit *lineEdit_5;
+    QLineEdit *lineEdit_oid;
     QSpacerItem *verticalSpacer;
     QPushButton *pushButton_Save;
+    QLabel *label_status;
 
     void setupUi(QDialog *PersonelDialog)
     {
         if (PersonelDialog->objectName().isEmpty())
             PersonelDialog->setObjectName(QStringLiteral("PersonelDialog"));
         PersonelDialog->resize(1156, 607);
-        horizontalLayout_2 = new QHBoxLayout(PersonelDialog);
+        verticalLayout_3 = new QVBoxLayout(PersonelDialog);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         groupBox = new QGroupBox(PersonelDialog);
         groupBox->setObjectName(QStringLiteral("groupBox"));
@@ -148,12 +152,12 @@ public:
 
         gridLayout->addWidget(lineEdit_password, 3, 1, 1, 1);
 
-        lineEdit_5 = new QLineEdit(groupBox_2);
-        lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
-        lineEdit_5->setEnabled(false);
-        lineEdit_5->setReadOnly(true);
+        lineEdit_oid = new QLineEdit(groupBox_2);
+        lineEdit_oid->setObjectName(QStringLiteral("lineEdit_oid"));
+        lineEdit_oid->setEnabled(false);
+        lineEdit_oid->setReadOnly(true);
 
-        gridLayout->addWidget(lineEdit_5, 4, 1, 1, 1);
+        gridLayout->addWidget(lineEdit_oid, 4, 1, 1, 1);
 
 
         verticalLayout_2->addLayout(gridLayout);
@@ -169,6 +173,14 @@ public:
 
 
         horizontalLayout_2->addWidget(groupBox_2);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_2);
+
+        label_status = new QLabel(PersonelDialog);
+        label_status->setObjectName(QStringLiteral("label_status"));
+
+        verticalLayout_3->addWidget(label_status);
 
 
         retranslateUi(PersonelDialog);
@@ -190,6 +202,7 @@ public:
         label_4->setText(QApplication::translate("PersonelDialog", "\305\236ifre", nullptr));
         label_5->setText(QApplication::translate("PersonelDialog", "oid", nullptr));
         pushButton_Save->setText(QApplication::translate("PersonelDialog", "Kaydet", nullptr));
+        label_status->setText(QApplication::translate("PersonelDialog", "Durum:", nullptr));
     } // retranslateUi
 
 };

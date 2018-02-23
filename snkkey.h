@@ -18,7 +18,7 @@
 namespace SNKKey {
 
 
-    static std::string dburl{"mongodb://sinkar:<sinKar><SerikBlD1926>@192.168.0.215:27018/?authSource=SINKAR"};
+    static std::string dburl{"mongodb://sinkar:sinKarSerikBlD1926@192.168.0.215:27018/?authSource=SINKAR"};
     static std::string db{"SINKAR"};
 
 

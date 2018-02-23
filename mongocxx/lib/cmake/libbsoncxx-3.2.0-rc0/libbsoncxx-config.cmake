@@ -15,7 +15,7 @@
 set(LIBBSONCXX_VERSION_MAJOR 3)
 set(LIBBSONCXX_VERSION_MINOR 2)
 set(LIBBSONCXX_VERSION_PATCH 0)
-set(LIBBSONCXX_PACKAGE_VERSION 3.2.0-rc1)
+set(LIBBSONCXX_PACKAGE_VERSION 3.2.0-rc0)
 
 
 ####### Expanded from @PACKAGE_INIT@ by configure_package_config_file() #######

@@ -13,11 +13,11 @@
 # limitations under the License.
 
 set (MONGOC_STATIC_MAJOR_VERSION 1)
-set (MONGOC_STATIC_MINOR_VERSION 9)
+set (MONGOC_STATIC_MINOR_VERSION 8)
 set (MONGOC_STATIC_MICRO_VERSION 2)
-set (MONGOC_STATIC_VERSION 1.9.2)
+set (MONGOC_STATIC_VERSION 1.8.2)
 
-find_package (libbson-static-1.0 "1.9" REQUIRED)
+find_package (libbson-static-1.0 "1.8" REQUIRED)
 
 # In a pure-CMake project this is inserted by configure_package_config_file(),
 # but we want to be able to build this file the same from the Autotools, so
@@ -50,7 +50,7 @@ set (MONGOC_STATIC_LIBRARIES ${MONGOC_STATIC_LIBRARY} ${ZLIB_STATIC_LIBRARY} ${B
 # "-framework CoreFoundation -framework Security". Split into a CMake array
 # like "-framework CoreFoundation;-framework Security".
 set (IS_FRAMEWORK_VAR 0)
-foreach (LIB secur32.lib;crypt32.lib;Shlwapi.lib C:/mongoMingw/opensslCmake/lib/libssl.a;C:/mongoMingw/opensslCmake/lib/libcrypto.a;crypt32.lib    Dnsapi)
+foreach (LIB secur32.lib;crypt32.lib;Shlwapi.lib secur32.lib;crypt32.lib;Bcrypt.lib   )
    if (LIB STREQUAL "-framework")
       set (IS_FRAMEWORK_VAR 1)
       continue ()

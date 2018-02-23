@@ -20,7 +20,7 @@
 
 /* MONGOC_USER_SET_CFLAGS is set from config based on what compiler flags were
  * used to compile mongoc */
-#define MONGOC_USER_SET_CFLAGS ""
+#define MONGOC_USER_SET_CFLAGS " -D_CRT_RAND_S"
 
 #define MONGOC_USER_SET_LDFLAGS ""
 
@@ -31,7 +31,7 @@
  * MONGOC_ENABLE_SSL_SECURE_CHANNEL is set from configure to determine if we are
  * compiled with Native SSL support on Windows
  */
-#define MONGOC_ENABLE_SSL_SECURE_CHANNEL 0
+#define MONGOC_ENABLE_SSL_SECURE_CHANNEL 1
 
 #if MONGOC_ENABLE_SSL_SECURE_CHANNEL != 1
 #  undef MONGOC_ENABLE_SSL_SECURE_CHANNEL
@@ -42,7 +42,7 @@
  * MONGOC_ENABLE_CRYPTO_CNG is set from configure to determine if we are
  * compiled with Native Crypto support on Windows
  */
-#define MONGOC_ENABLE_CRYPTO_CNG 0
+#define MONGOC_ENABLE_CRYPTO_CNG 1
 
 #if MONGOC_ENABLE_CRYPTO_CNG != 1
 #  undef MONGOC_ENABLE_CRYPTO_CNG
@@ -86,7 +86,7 @@
  * MONGOC_ENABLE_SSL_OPENSSL is set from configure to determine if we are
  * compiled with OpenSSL support.
  */
-#define MONGOC_ENABLE_SSL_OPENSSL 1
+#define MONGOC_ENABLE_SSL_OPENSSL 0
 
 #if MONGOC_ENABLE_SSL_OPENSSL != 1
 #  undef MONGOC_ENABLE_SSL_OPENSSL
@@ -97,7 +97,7 @@
  * MONGOC_ENABLE_CRYPTO_LIBCRYPTO is set from configure to determine if we are
  * compiled with OpenSSL support.
  */
-#define MONGOC_ENABLE_CRYPTO_LIBCRYPTO 1
+#define MONGOC_ENABLE_CRYPTO_LIBCRYPTO 0
 
 #if MONGOC_ENABLE_CRYPTO_LIBCRYPTO != 1
 #  undef MONGOC_ENABLE_CRYPTO_LIBCRYPTO
@@ -233,62 +233,6 @@
 
 #if MONGOC_HAVE_SOCKLEN != 1
 #  undef MONGOC_HAVE_SOCKLEN
-#endif
-
-
-/*
- * MONGOC_HAVE_DNSAPI is set from configure to determine if we should use the
- * Windows dnsapi for SRV record lookups.
- */
-#define MONGOC_HAVE_DNSAPI 1
-
-#if MONGOC_HAVE_DNSAPI != 1
-#  undef MONGOC_HAVE_DNSAPI
-#endif
-
-
-/*
- * MONGOC_HAVE_RES_NSEARCH is set from configure to determine if we
- * have thread-safe res_nsearch().
- */
-#define MONGOC_HAVE_RES_NSEARCH 0
-
-#if MONGOC_HAVE_RES_NSEARCH != 1
-#  undef MONGOC_HAVE_RES_NSEARCH
-#endif
-
-
-/*
- * MONGOC_HAVE_RES_NDESTROY is set from configure to determine if we
- * have BSD / Darwin's res_ndestroy().
- */
-#define MONGOC_HAVE_RES_NDESTROY 0
-
-#if MONGOC_HAVE_RES_NDESTROY != 1
-#  undef MONGOC_HAVE_RES_NDESTROY
-#endif
-
-
-/*
- * MONGOC_HAVE_RES_NCLOSE is set from configure to determine if we
- * have Linux's res_nclose().
- */
-#define MONGOC_HAVE_RES_NCLOSE 0
-
-#if MONGOC_HAVE_RES_NCLOSE != 1
-#  undef MONGOC_HAVE_RES_NCLOSE
-#endif
-
-
-/*
- * MONGOC_HAVE_RES_SEARCH is set from configure to determine if we
- * have thread-unsafe res_search(). It's unset if we have the preferred
- * res_nsearch().
- */
-#define MONGOC_HAVE_RES_SEARCH 0
-
-#if MONGOC_HAVE_RES_SEARCH != 1
-#  undef MONGOC_HAVE_RES_SEARCH
 #endif
 
 

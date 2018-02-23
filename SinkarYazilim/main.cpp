@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
 
 
-    mongocxx::instance{};
+    mongocxx::instance instance{};
 
 
     MainWindow w;
