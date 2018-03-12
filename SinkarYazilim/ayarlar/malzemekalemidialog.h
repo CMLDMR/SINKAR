@@ -54,6 +54,21 @@ private slots:
     void on_pushButton_NewMalzeme_clicked();
 
     void on_listView_kategori_clicked(const QModelIndex &index);
+    void refreshMalzemeList(QtBsonObject &filter);
+
+    void on_listView_malzeme_clicked(const QModelIndex &index);
+
+    void on_pushButton_SaveMalzeme_clicked();
+
+    void on_comboBox_MalzemeKategori_currentIndexChanged(const QString &arg1);
+
+    void on_pushButton_deleteKategori_clicked();
+
+    void on_pushButton_refreshKategori_clicked();
+
+    void on_pushButton_deleteMalzeme_clicked();
+
+    void on_pushButton_refreshMalzeme_clicked();
 
 private:
     Ui::MalzemeKalemiDialog *ui;
@@ -87,7 +102,9 @@ public:
         HeaderRole = Qt::UserRole + 1,
         Kategori,
         KategoriOid,
-        Oid
+        Oid,
+        Birimi,
+        Kdv
     };
 
     void paint(QPainter* painter, const QStyleOptionViewItem &option , const QModelIndex &index) const;

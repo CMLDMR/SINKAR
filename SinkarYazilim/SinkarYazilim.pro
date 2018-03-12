@@ -33,7 +33,8 @@ SOURCES += \
     ayarlar/ayarlardialog.cpp \
     ayarlar/depodialog.cpp \
     ayarlar/malzemekalemidialog.cpp \
-    ../../Comman/qtbsonobject.cpp
+    ../../Comman/qtbsonobject.cpp \
+    ayarlar/recetedialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     ayarlar/depodialog.h \
     src/quickwidget.h \
     ayarlar/malzemekalemidialog.h \
-    ../../Comman/qtbsonobject.h
+    ../../Comman/qtbsonobject.h \
+    ayarlar/recetedialog.h
 
 FORMS += \
         mainwindow.ui \
@@ -53,7 +55,8 @@ FORMS += \
     personel/logindialog.ui \
     ayarlar/ayarlardialog.ui \
     ayarlar/depodialog.ui \
-    ayarlar/malzemekalemidialog.ui
+    ayarlar/malzemekalemidialog.ui \
+    ayarlar/recetedialog.ui
 
 
 

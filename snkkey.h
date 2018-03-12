@@ -47,12 +47,34 @@ namespace SNKKey {
 
 
     namespace Malzeme {
-    static std::string collection{"Malzeme"};
-    static std::string adi{"adi"};
-    static std::string birimi{"birimi"};
-    static std::string kdv{"kdv"};
-    static std::string oid{"_id"};
-    static std::string kategorioid{"kategorioid"};
+        static std::string collection{"Malzeme"};
+        static std::string adi{"adi"};
+        static std::string birimi{"birimi"};
+        static std::string kdv{"kdv"};
+        static std::string oid{"_id"};
+        static std::string kategorioid{"kategorioid"};
+    }
+
+    namespace Recete {
+        namespace Recete {
+            static std::string collection{"Recete"};
+            static std::string adi{"adi"};
+            static std::string birimi{"birimi"};
+            static std::string kdv{"kdv"};
+            static std::string oid{"_id"};
+            static std::string malzeme{"malzemeler"};
+            namespace Malzemeler {
+                static std::string oid{"malzemeid"};
+                static std::string miktar{"miktar"};
+            }
+        }
+
+        namespace Kategori {
+            static std::string collection{"ReceteKategori"};
+            static std::string adi{"adi"};
+            static std::string oid{"_id"};
+        }
+
     }
 
 

@@ -45,6 +45,8 @@ private slots:
 
     void on_pushButton_malzeme_clicked();
 
+    void on_pushButton_recete_clicked();
+
 private:
     Ui::AyarlarDialog *ui;
 

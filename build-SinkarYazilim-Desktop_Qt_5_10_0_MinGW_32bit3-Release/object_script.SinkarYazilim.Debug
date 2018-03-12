@@ -7,6 +7,7 @@ INPUT(
 ./debug\depodialog.o
 ./debug\malzemekalemidialog.o
 ./debug\qtbsonobject.o
+./debug\recetedialog.o
 ./debug\moc_mainwindow.o
 ./debug\moc_personeldialog.o
 ./debug\moc_logindialog.o
@@ -15,4 +16,5 @@ INPUT(
 ./debug\moc_quickwidget.o
 ./debug\moc_malzemekalemidialog.o
 ./debug\moc_qtbsonobject.o
+./debug\moc_recetedialog.o
 );

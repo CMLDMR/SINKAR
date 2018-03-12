@@ -29,6 +29,10 @@ MalzemeKalemiDialog::MalzemeKalemiDialog(mongocxx::database* _db , QWidget *pare
 
 
     this->refreshKategoriList();
+
+
+    this->setStyleSheet("QDialog{border:1px solid black;}");
+    this->setWindowFlag(Qt::FramelessWindowHint);
 }
 
 MalzemeKalemiDialog::~MalzemeKalemiDialog()
@@ -130,12 +134,14 @@ void MalzemeKalemiDialog::refreshKategoriList()
     try {
         auto cursor = db->collection(SNKKey::Kategoriler::collection).find(filter.view());
 
+        ui->comboBox_MalzemeKategori->clear();
         for( auto doc : cursor )
         {
             QStandardItem* item = new QStandardItem;
             item->setText(doc[SNKKey::Kategoriler::adi].get_utf8().value.to_string().c_str());
             item->setData(doc[SNKKey::Kategoriler::oid].get_oid().value.to_string().c_str(),Qt::UserRole);
             kategoriModel->appendRow(item);
+            ui->comboBox_MalzemeKategori->addItem(doc[SNKKey::Kategoriler::adi].get_utf8().value.to_string().c_str());
         }
 
     } catch (mongocxx::exception &e) {
@@ -146,9 +152,6 @@ void MalzemeKalemiDialog::refreshKategoriList()
 void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
 {
 
-    std::cout << ui->listView_kategori->currentIndex().row() << std::endl;
-
-    std::cout << ui->listView_kategori->currentIndex().data(Qt::UserRole).toString().toStdString() << std::endl;
 
     if( ui->listView_kategori->currentIndex().row() == -1 )
     {
@@ -195,6 +198,7 @@ void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
                     this->showmessage("Malzeme Kayıt Edilemedi");
                 }else{
                     this->setmessage("kayıt başarılı");
+                    this->on_pushButton_refreshMalzeme_clicked();
                 }
             }
 
@@ -223,6 +227,7 @@ MalzemeDelegate::~MalzemeDelegate()
 void MalzemeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 
+//    std::cout << "PAINT " << std::endl;
     if( !index.isValid() )
     {
         return;
@@ -271,6 +276,7 @@ void MalzemeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 
 QSize MalzemeDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+//    std::cout << "SizeHINT" << std::endl;
     if(!index.isValid())
         return QSize();
 
@@ -306,12 +312,17 @@ QSize MalzemeDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
 
 void MalzemeKalemiDialog::on_listView_kategori_clicked(const QModelIndex &index)
 {
-    std::cout << "INDEX: " << index.data(Qt::UserRole).toString().toStdString() << std::endl;
-
 
     QtBsonObject filter;
 
     filter.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(index.data(Qt::UserRole).toString().toStdString().c_str()));
+
+    this->refreshMalzemeList(filter);
+
+}
+
+void MalzemeKalemiDialog::refreshMalzemeList(QtBsonObject &filter)
+{
 
 
     auto collection = db->collection(SNKKey::Malzeme::collection);
@@ -333,8 +344,16 @@ void MalzemeKalemiDialog::on_listView_kategori_clicked(const QModelIndex &index)
                 item->setData(e.what(),MalzemeDelegate::HeaderRole);
             }
             try {
-//                item->setData(doc[SNKKey::Malzeme::birimi].get_utf8().value.to_string().c_str(),MalzemeDelegate::Kategori);
-
+                item->setData(doc[SNKKey::Malzeme::birimi].get_utf8().value.to_string().c_str(),MalzemeDelegate::Birimi);
+            } catch (bsoncxx::exception &e) {
+                setmessage(e);
+            }
+            try {
+                item->setData(doc[SNKKey::Malzeme::kdv].get_double().value,MalzemeDelegate::Kdv);
+            } catch (bsoncxx::exception &e) {
+                setmessage(e);
+            }
+            try {
                 QtBsonObject newFilter;
                 newFilter.append(SNKKey::Kategoriler::oid,QtBsonObject::oid(doc[SNKKey::Malzeme::kategorioid].get_oid().value.to_string().c_str()));
 
@@ -354,10 +373,8 @@ void MalzemeKalemiDialog::on_listView_kategori_clicked(const QModelIndex &index)
                         }
                     }
                 } catch (mongocxx::exception &e) {
-
+                    item->setData(doc[SNKKey::Malzeme::birimi].get_utf8().value.to_string().c_str(),MalzemeDelegate::Kategori);
                 }
-
-
             } catch (bsoncxx::exception &e) {
                 item->setData(e.what(),MalzemeDelegate::Kategori);
             }
@@ -367,7 +384,6 @@ void MalzemeKalemiDialog::on_listView_kategori_clicked(const QModelIndex &index)
                 item->setData(doc[SNKKey::Malzeme::oid].get_oid().value.to_string().c_str(),MalzemeDelegate::Oid);
 
             } catch (bsoncxx::exception &e) {
-//                item->setData(e.what(),MalzemeDelegate::HeaderRole);
                 setmessage(e);
             }
 
@@ -380,4 +396,180 @@ void MalzemeKalemiDialog::on_listView_kategori_clicked(const QModelIndex &index)
         setmessage(e);
     }
 
+}
+
+void MalzemeKalemiDialog::on_listView_malzeme_clicked(const QModelIndex &index)
+{
+
+    ui->lineEdit_MalzemeOid->setText(index.data(MalzemeDelegate::Oid).toString());
+
+    ui->comboBox_MalzemeKategori->setCurrentText(index.data(MalzemeDelegate::Kategori).toString());
+
+    ui->lineEdit_MalzemeName->setText(index.data(MalzemeDelegate::HeaderRole).toString());
+
+    ui->lineEdit_MalzemeBirimi->setText(index.data(MalzemeDelegate::Birimi).toString());
+
+    ui->doubleSpinBox_MalzemeComboBox->setValue(index.data(MalzemeDelegate::Kdv).toDouble());
+
+    ui->lineEdit_KategoriOid->setText(index.data(MalzemeDelegate::KategoriOid).toString());
+
+
+}
+
+void MalzemeKalemiDialog::on_pushButton_SaveMalzeme_clicked()
+{
+
+    QtBsonObject obj;
+
+    obj.append(SNKKey::Malzeme::adi,ui->lineEdit_MalzemeName->text());
+
+    obj.append(SNKKey::Malzeme::birimi,ui->lineEdit_MalzemeBirimi->text());
+
+    obj.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(ui->lineEdit_KategoriOid->text()));
+
+    obj.append(SNKKey::Malzeme::kdv,ui->doubleSpinBox_MalzemeComboBox->value());
+
+    obj.append("$set",obj);
+
+    QtBsonObject filter;
+
+    filter.append(SNKKey::Malzeme::oid,QtBsonObject::oid(ui->lineEdit_MalzemeOid->text()));
+
+    try {
+        auto ins = db->collection(SNKKey::Malzeme::collection).update_one(filter.view(),obj.view());
+        if( ins )
+        {
+            if( ins.value().modified_count() )
+            {
+                setmessage("Doküman Güncellendi");
+                QtBsonObject _filter;
+                _filter.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(ui->listView_kategori->currentIndex().data(Qt::UserRole).toString()));
+
+                this->refreshMalzemeList(_filter);
+
+            }else{
+                setmessage(" ! Doküman Güncellenemedi");
+            }
+        }else{
+            setmessage(" ! Doküman Güncellenemedi");
+        }
+    } catch (mongocxx::exception &e) {
+        setmessage(e);
+    }
+}
+
+void MalzemeKalemiDialog::on_comboBox_MalzemeKategori_currentIndexChanged(const QString &arg1)
+{
+    {
+
+        QtBsonObject kfilter;
+
+        kfilter.append(SNKKey::Kategoriler::adi,arg1);
+
+        auto val = db->collection(SNKKey::Kategoriler::collection).find_one(kfilter.view());
+
+        if( val )
+        {
+            if( !val.value().view().empty() )
+            {
+                auto view = val.value().view();
+
+                ui->lineEdit_KategoriOid->setText(view[SNKKey::Kategoriler::oid].get_oid().value.to_string().c_str());
+            }
+        }
+    }
+}
+
+void MalzemeKalemiDialog::on_pushButton_deleteKategori_clicked()
+{
+
+    bool existMalzeme = false;
+
+    {
+        QtBsonObject filter;
+        filter.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(ui->listView_kategori->currentIndex().data(Qt::UserRole).toString()));
+
+        auto val = db->collection(SNKKey::Malzeme::collection).find(filter.view());
+        if( std::distance(val.begin(),val.end()) )
+        {
+            existMalzeme = true;
+        }
+    }
+
+
+    if( existMalzeme )
+    {
+        showmessage("Bu Kategoriye Ait Malzemeler Var. Bu Kategoriyi Silmek için Önce Malzeme Listesini\nBu Kategoriden Çıkarın yada Silin!",QMessageBox::Icon::Critical);
+        return;
+    }else{
+        QMessageBox::StandardButton btn = QMessageBox::question(this,"SORU","Bu Kategoriyi Silmek İstediğinize Emin misiniz?",QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::Cancel);
+
+        if( btn == QMessageBox::StandardButton::Ok )
+        {
+            QtBsonObject filter;
+            filter.append(SNKKey::Kategoriler::oid,QtBsonObject::oid(ui->listView_kategori->currentIndex().data(Qt::UserRole).toString()));
+
+            auto del = db->collection(SNKKey::Kategoriler::collection).delete_one(filter.view());
+            if( del )
+            {
+                if( del.value().deleted_count() )
+                {
+                    setmessage("Kategori Silindi");
+                    this->refreshKategoriList();
+                }else{
+                    setmessage(" ! Kategori Silinemedi");
+                }
+            }else{
+                setmessage(" ! Kategori Silinemedi");
+            }
+        }
+    }
+
+}
+
+void MalzemeKalemiDialog::on_pushButton_refreshKategori_clicked()
+{
+    this->refreshKategoriList();
+}
+
+void MalzemeKalemiDialog::on_pushButton_deleteMalzeme_clicked()
+{
+
+    if( ui->lineEdit_MalzemeOid->text().isEmpty() )
+    {
+        this->showmessage("Malzeme Seçmediniz");
+        return;
+    }
+
+
+    QMessageBox::StandardButton btn = QMessageBox::question(this,"SORU","Bu Malzemeyi Silmek İstediğinize Emin misiniz?",QMessageBox::StandardButton::Ok|QMessageBox::StandardButton::Cancel);
+
+    if( btn == QMessageBox::StandardButton::Ok )
+    {
+        QtBsonObject filter;
+        filter.append(SNKKey::Malzeme::oid,QtBsonObject::oid(ui->lineEdit_MalzemeOid->text()));
+
+        auto del = db->collection(SNKKey::Malzeme::collection).delete_one(filter.view());
+        if( del )
+        {
+            if( del.value().deleted_count() )
+            {
+                setmessage("Malzeme Silindi");
+                this->on_pushButton_refreshMalzeme_clicked();
+            }else{
+                setmessage(" ! Malzeme Silinemedi");
+            }
+        }else{
+            setmessage(" ! Malzeme Silinemedi");
+        }
+    }
+}
+
+void MalzemeKalemiDialog::on_pushButton_refreshMalzeme_clicked()
+{
+
+    QtBsonObject filter;
+
+    filter.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(ui->listView_kategori->currentIndex().data(Qt::UserRole).toString()));
+    this->refreshMalzemeList(filter);
 }

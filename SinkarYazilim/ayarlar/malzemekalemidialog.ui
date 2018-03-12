@@ -65,13 +65,6 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton_deleteMalzeme">
-            <property name="text">
-             <string>Sil</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="pushButton_refreshMalzeme">
             <property name="text">
              <string>Yenile</string>
@@ -98,6 +91,13 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QGridLayout" name="gridLayout">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Birimi</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
@@ -112,14 +112,20 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_4">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>Birimi</string>
+             <string>KDV</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="1" colspan="2">
+           <widget class="QLineEdit" name="lineEdit_MalzemeName"/>
+          </item>
+          <item row="4" column="1" colspan="2">
+           <widget class="QLineEdit" name="lineEdit_MalzemeBirimi"/>
+          </item>
+          <item row="3" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Adı</string>
@@ -133,24 +139,25 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_5">
+          <item row="1" column="1" colspan="2">
+           <widget class="QComboBox" name="comboBox_MalzemeKategori"/>
+          </item>
+          <item row="5" column="1" colspan="2">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_MalzemeComboBox"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>KDV</string>
+             <string>Kategori Kodu</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1" colspan="2">
-           <widget class="QLineEdit" name="lineEdit_MalzemeName"/>
-          </item>
-          <item row="3" column="1" colspan="2">
-           <widget class="QLineEdit" name="lineEdit_MalzemeBirimi"/>
-          </item>
-          <item row="4" column="1" colspan="2">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_MalzemeComboBox"/>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QComboBox" name="comboBox_MalzemeKategori"/>
+           <widget class="QLineEdit" name="lineEdit_KategoriOid">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -174,6 +181,20 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_deleteMalzeme">
+          <property name="text">
+           <string>Sil</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtoClose">
+          <property name="text">
+           <string>Kapat</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -189,5 +210,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButtoClose</sender>
+   <signal>clicked()</signal>
+   <receiver>MalzemeKalemiDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>717</x>
+     <y>326</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>759</x>
+     <y>354</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
