@@ -173,7 +173,15 @@ void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
     lineEdit_birim->setPlaceholderText("Malzeme Birimini Giriniz");
 
 
+
+    layout->addwidget<QLabel>("KDV");
+
     auto kdv = layout->addwidget<QDoubleSpinBox>();
+
+    auto label2 = layout->addwidget<QLabel>("Fiyat");
+
+    auto fiyat = layout->addwidget<QDoubleSpinBox>();
+    fiyat->setMaximum(10000000);
 
     auto save = layout->addwidget<QPushButton>("Kaydet");
 
@@ -184,6 +192,7 @@ void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
         obj.append(SNKKey::Malzeme::adi,lineEdit_malzeme->text());
         obj.append(SNKKey::Malzeme::birimi,lineEdit_birim->text());
         obj.append(SNKKey::Malzeme::kdv,kdv->value());
+        obj.append(SNKKey::Malzeme::fiyat,fiyat->value());
         obj.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(ui->listView_kategori->currentIndex().data(Qt::UserRole).toString()));
 
 
@@ -354,6 +363,11 @@ void MalzemeKalemiDialog::refreshMalzemeList(QtBsonObject &filter)
                 setmessage(e);
             }
             try {
+                item->setData(doc[SNKKey::Malzeme::fiyat].get_double().value,MalzemeDelegate::Fiyat);
+            } catch (bsoncxx::exception &e) {
+                setmessage(e);
+            }
+            try {
                 QtBsonObject newFilter;
                 newFilter.append(SNKKey::Kategoriler::oid,QtBsonObject::oid(doc[SNKKey::Malzeme::kategorioid].get_oid().value.to_string().c_str()));
 
@@ -413,6 +427,8 @@ void MalzemeKalemiDialog::on_listView_malzeme_clicked(const QModelIndex &index)
 
     ui->lineEdit_KategoriOid->setText(index.data(MalzemeDelegate::KategoriOid).toString());
 
+    ui->doubleSpinBox_fiyat->setValue(index.data(MalzemeDelegate::Fiyat).toDouble());
+
 
 }
 
@@ -428,6 +444,7 @@ void MalzemeKalemiDialog::on_pushButton_SaveMalzeme_clicked()
     obj.append(SNKKey::Malzeme::kategorioid,QtBsonObject::oid(ui->lineEdit_KategoriOid->text()));
 
     obj.append(SNKKey::Malzeme::kdv,ui->doubleSpinBox_MalzemeComboBox->value());
+    obj.append(SNKKey::Malzeme::fiyat,ui->doubleSpinBox_fiyat->value());
 
     obj.append("$set",obj);
 

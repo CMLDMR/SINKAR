@@ -104,7 +104,8 @@ public:
         KategoriOid,
         Oid,
         Birimi,
-        Kdv
+        Kdv,
+        Fiyat
     };
 
     void paint(QPainter* painter, const QStyleOptionViewItem &option , const QModelIndex &index) const;
