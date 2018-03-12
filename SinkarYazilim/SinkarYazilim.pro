@@ -29,19 +29,31 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     personel/personeldialog.cpp \
-    personel/logindialog.cpp
+    personel/logindialog.cpp \
+    ayarlar/ayarlardialog.cpp \
+    ayarlar/depodialog.cpp \
+    ayarlar/malzemekalemidialog.cpp \
+    ../../Comman/qtbsonobject.cpp
 
 HEADERS += \
         mainwindow.h \
     mongoheaders.h \
     ../snkkey.h \
     personel/personeldialog.h \
-    personel/logindialog.h
+    personel/logindialog.h \
+    ayarlar/ayarlardialog.h \
+    ayarlar/depodialog.h \
+    src/quickwidget.h \
+    ayarlar/malzemekalemidialog.h \
+    ../../Comman/qtbsonobject.h
 
 FORMS += \
         mainwindow.ui \
     personel/personeldialog.ui \
-    personel/logindialog.ui
+    personel/logindialog.ui \
+    ayarlar/ayarlardialog.ui \
+    ayarlar/depodialog.ui \
+    ayarlar/malzemekalemidialog.ui
 
 
 
@@ -59,6 +71,9 @@ LIBS += -L$$PWD/../mongocxx/lib/ -llibmongocxx.dll
 
 INCLUDEPATH += $$PWD/../mongocxx/include/mongocxx/v_noabi
 DEPENDPATH += $$PWD/../mongocxx/include/mongocxx/v_noabi
+
+INCLUDEPATH += $$PWD/../../Comman/
+DEPENDPATH += $$PWD/../../Comman/
 
 INCLUDEPATH += $$PWD/../
 DEPENDPATH += $$PWD/../

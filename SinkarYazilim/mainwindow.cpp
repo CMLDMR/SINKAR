@@ -4,6 +4,8 @@
 #include "personel/personeldialog.h"
 #include "personel/logindialog.h"
 
+#include "ayarlar/ayarlardialog.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -48,19 +50,14 @@ void MainWindow::setMessage(const char *message)
 
 void MainWindow::on_pushButton_Personel_clicked()
 {
-
-
     PersonelDialog* mDialog = new PersonelDialog(&db);
-
-//    connect(mDialog,&PersonelDialog::status,this,&MainWindow::setMessage);
-
     mDialog->exec();
     mDialog->deleteLater();
-
-
 }
 
 void MainWindow::on_pushButton_options_clicked()
 {
-
+    AyarlarDialog* mAyarlar = new AyarlarDialog(&db);
+    mAyarlar->exec();
+    mAyarlar->deleteLater();
 }

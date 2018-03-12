@@ -42,7 +42,7 @@ public:
     {
         if (LoginDialog->objectName().isEmpty())
             LoginDialog->setObjectName(QStringLiteral("LoginDialog"));
-        LoginDialog->resize(428, 150);
+        LoginDialog->resize(428, 155);
         LoginDialog->setStyleSheet(QStringLiteral(""));
         verticalLayout = new QVBoxLayout(LoginDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -100,7 +100,9 @@ public:
     void retranslateUi(QDialog *LoginDialog)
     {
         LoginDialog->setWindowTitle(QApplication::translate("LoginDialog", "Dialog", nullptr));
+        lineEdit_username->setText(QApplication::translate("LoginDialog", "1", nullptr));
         label_2->setText(QApplication::translate("LoginDialog", "<html><head/><body><p><span style=\" font-weight:600;\">\305\236ifre</span></p></body></html>", nullptr));
+        lineEdit_password->setText(QApplication::translate("LoginDialog", "1", nullptr));
         label->setText(QApplication::translate("LoginDialog", "<html><head/><body><p><span style=\" font-weight:600;\">Kullan\304\261c\304\261 Ad\304\261</span></p></body></html>", nullptr));
         label_3->setText(QApplication::translate("LoginDialog", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">Giri\305\237 Yap</span></p></body></html>", nullptr));
         pushButton_login->setText(QApplication::translate("LoginDialog", "Giri\305\237", nullptr));
