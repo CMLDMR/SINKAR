@@ -52,6 +52,7 @@ namespace SNKKey {
         static std::string birimi{"birimi"};
         static std::string kdv{"kdv"};
         static std::string oid{"_id"};
+        static std::string fiyat{"fiyat"};
         static std::string kategorioid{"kategorioid"};
     }
 
