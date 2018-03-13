@@ -60,8 +60,10 @@ public:
     QLabel *label;
     QComboBox *comboBox_MalzemeKategori;
     QDoubleSpinBox *doubleSpinBox_MalzemeComboBox;
-    QLabel *label_6;
     QLineEdit *lineEdit_KategoriOid;
+    QLabel *label_6;
+    QLabel *label_7;
+    QDoubleSpinBox *doubleSpinBox_fiyat;
     QSpacerItem *verticalSpacer;
     QPushButton *pushButton_SaveMalzeme;
     QPushButton *pushButton_deleteMalzeme;
@@ -193,16 +195,26 @@ public:
 
         gridLayout->addWidget(doubleSpinBox_MalzemeComboBox, 5, 1, 1, 2);
 
-        label_6 = new QLabel(groupBox);
-        label_6->setObjectName(QStringLiteral("label_6"));
-
-        gridLayout->addWidget(label_6, 2, 0, 1, 1);
-
         lineEdit_KategoriOid = new QLineEdit(groupBox);
         lineEdit_KategoriOid->setObjectName(QStringLiteral("lineEdit_KategoriOid"));
         lineEdit_KategoriOid->setEnabled(false);
 
         gridLayout->addWidget(lineEdit_KategoriOid, 2, 1, 1, 2);
+
+        label_6 = new QLabel(groupBox);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        gridLayout->addWidget(label_6, 2, 0, 1, 1);
+
+        label_7 = new QLabel(groupBox);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        gridLayout->addWidget(label_7, 6, 0, 1, 1);
+
+        doubleSpinBox_fiyat = new QDoubleSpinBox(groupBox);
+        doubleSpinBox_fiyat->setObjectName(QStringLiteral("doubleSpinBox_fiyat"));
+
+        gridLayout->addWidget(doubleSpinBox_fiyat, 6, 1, 1, 2);
 
 
         verticalLayout->addLayout(gridLayout);
@@ -261,6 +273,7 @@ public:
         label_3->setText(QApplication::translate("MalzemeKalemiDialog", "Ad\304\261", nullptr));
         label->setText(QApplication::translate("MalzemeKalemiDialog", "Kodu", nullptr));
         label_6->setText(QApplication::translate("MalzemeKalemiDialog", "Kategori Kodu", nullptr));
+        label_7->setText(QApplication::translate("MalzemeKalemiDialog", "Fiyat", nullptr));
         pushButton_SaveMalzeme->setText(QApplication::translate("MalzemeKalemiDialog", "Kaydet", nullptr));
         pushButton_deleteMalzeme->setText(QApplication::translate("MalzemeKalemiDialog", "Sil", nullptr));
         pushButtoClose->setText(QApplication::translate("MalzemeKalemiDialog", "Kapat", nullptr));

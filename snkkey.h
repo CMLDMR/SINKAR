@@ -64,6 +64,8 @@ namespace SNKKey {
             static std::string kdv{"kdv"};
             static std::string oid{"_id"};
             static std::string malzeme{"malzemeler"};
+            static std::string kar{"kar"};
+            static std::string kategori{"kategori"};
             namespace Malzemeler {
                 static std::string oid{"malzemeid"};
                 static std::string miktar{"miktar"};
