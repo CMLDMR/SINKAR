@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,7 +35,28 @@ SOURCES += \
     ayarlar/malzemekalemidialog.cpp \
     ../../Comman/qtbsonobject.cpp \
     ayarlar/recetedialog.cpp \
-    ayarlar/addmalzemedialog.cpp
+    ayarlar/addmalzemedialog.cpp \
+    stok/stokdialog.cpp \
+    stok/malzemegirdialog.cpp \
+    stok/malzemeselectdialog.cpp \
+    stok/selectfirmadialog.cpp \
+    ayarlar/addfirmadialog.cpp \
+    stok/malzemecikdialog.cpp \
+    stok/sevkmiktardialog.cpp \
+    ayarlar/kasamasadialog.cpp \
+    Kasa/kasadialog.cpp \
+    Kasa/siparisdialog.cpp \
+    Kasa/hesabikapatdialog.cpp \
+    Kasa/caridialog.cpp \
+    Kasa/addcarihesapdialog.cpp \
+    Cari/carihesapdialog.cpp \
+    Cari/odemealdialog.cpp \
+    Cari/detaylihesapdialog.cpp \
+    dbuser.cpp \
+    delegate.cpp \
+    Harici/haricigiderdialog.cpp \
+    ayarlar/haricigiderayardialog.cpp \
+    Cari/gelirgidersceneitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +70,28 @@ HEADERS += \
     ayarlar/malzemekalemidialog.h \
     ../../Comman/qtbsonobject.h \
     ayarlar/recetedialog.h \
-    ayarlar/addmalzemedialog.h
+    ayarlar/addmalzemedialog.h \
+    stok/stokdialog.h \
+    stok/malzemegirdialog.h \
+    stok/malzemeselectdialog.h \
+    stok/selectfirmadialog.h \
+    ayarlar/addfirmadialog.h \
+    stok/malzemecikdialog.h \
+    stok/sevkmiktardialog.h \
+    ayarlar/kasamasadialog.h \
+    Kasa/kasadialog.h \
+    Kasa/siparisdialog.h \
+    Kasa/hesabikapatdialog.h \
+    Kasa/caridialog.h \
+    Kasa/addcarihesapdialog.h \
+    Cari/carihesapdialog.h \
+    Cari/odemealdialog.h \
+    Cari/detaylihesapdialog.h \
+    dbuser.h \
+    delegate.h \
+    Harici/haricigiderdialog.h \
+    ayarlar/haricigiderayardialog.h \
+    Cari/gelirgidersceneitem.h
 
 FORMS += \
         mainwindow.ui \
@@ -59,7 +101,26 @@ FORMS += \
     ayarlar/depodialog.ui \
     ayarlar/malzemekalemidialog.ui \
     ayarlar/recetedialog.ui \
-    ayarlar/addmalzemedialog.ui
+    ayarlar/addmalzemedialog.ui \
+    stok/stokdialog.ui \
+    stok/malzemegirdialog.ui \
+    stok/malzemeselectdialog.ui \
+    stok/selectfirmadialog.ui \
+    ayarlar/addfirmadialog.ui \
+    stok/malzemecikdialog.ui \
+    stok/sevkmiktardialog.ui \
+    ayarlar/kasamasadialog.ui \
+    Kasa/kasadialog.ui \
+    Kasa/siparisdialog.ui \
+    Kasa/hesabikapatdialog.ui \
+    Kasa/caridialog.ui \
+    Kasa/addcarihesapdialog.ui \
+    Cari/carihesapdialog.ui \
+    Cari/odemealdialog.ui \
+    Cari/detaylihesapdialog.ui \
+    Harici/haricigiderdialog.ui \
+    ayarlar/haricigiderayardialog.ui
+
 
 
 
@@ -83,3 +144,20 @@ DEPENDPATH += $$PWD/../../Comman/
 
 INCLUDEPATH += $$PWD/../
 DEPENDPATH += $$PWD/../
+
+
+
+
+
+win32: LIBS += -L$$PWD/KDReports/lib/ -llibkdreports.dll
+
+INCLUDEPATH += $$PWD/KDReports/include
+DEPENDPATH += $$PWD/KDReports/include
+
+RESOURCES += \
+    appresource.qrc
+
+
+win32 {
+    RC_FILE = iconrc.rc
+}

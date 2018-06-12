@@ -88,6 +88,7 @@ void MalzemeKalemiDialog::on_pushButton_NewKategori_clicked()
     });
 
 
+    save->setDefault(true);
 
 
     mDialog->exec();
@@ -149,6 +150,50 @@ void MalzemeKalemiDialog::refreshKategoriList()
     }
 }
 
+void MalzemeKalemiDialog::insertStok(std::string oid, std::string adi, std::string birimi)
+{
+
+
+    try {
+        auto cursor = db->collection(SNKKey::Depo::collection).find(document{}.view());
+
+        for( auto var : cursor )
+        {
+            auto doc = document{};
+
+            try {
+                doc.append(kvp(SNKKey::StokMiktar::adi,adi.c_str()));
+                doc.append(kvp(SNKKey::StokMiktar::birim,birimi.c_str()));
+                doc.append(kvp(SNKKey::StokMiktar::miktar,bsoncxx::types::b_double{0}));
+                doc.append(kvp(SNKKey::StokMiktar::depo,var[SNKKey::Depo::depoAdi].get_utf8().value.to_string().c_str()));
+                doc.append(kvp(SNKKey::StokMiktar::malzemeoid,bsoncxx::oid{oid.c_str()}));
+            } catch (bsoncxx::exception &e) {
+                this->setmessage(e);
+            }
+
+            try {
+                auto ins = db->collection(SNKKey::StokMiktar::collection).insert_one(doc.view());
+                if( ins )
+                {
+                    if( !ins.value().result().inserted_count() )
+                    {
+                        std::cout << "Error: no inserted Document" << std::endl;
+                    }
+                }else{
+                    std::cout << "No inserted Document" << std::endl;
+                }
+            } catch (mongocxx::exception &e) {
+                this->setmessage(e);
+            }
+        }
+
+    } catch (mongocxx::exception &e) {
+        this->setmessage(e);
+    }
+
+
+}
+
 void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
 {
 
@@ -187,6 +232,9 @@ void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
 
     connect(save,&QPushButton::clicked,[=](){
 
+
+
+
         QtBsonObject obj;
 
         obj.append(SNKKey::Malzeme::adi,lineEdit_malzeme->text());
@@ -206,7 +254,8 @@ void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
                 {
                     this->showmessage("Malzeme Kayıt Edilemedi");
                 }else{
-                    this->setmessage("kayıt başarılı");
+                    this->setmessage("Kayıt Başarılı");
+                    this->insertStok(ins.value().inserted_id().get_oid().value.to_string(),lineEdit_malzeme->text().toStdString(),lineEdit_birim->text().toStdString());
                     this->on_pushButton_refreshMalzeme_clicked();
                 }
             }
@@ -218,6 +267,9 @@ void MalzemeKalemiDialog::on_pushButton_NewMalzeme_clicked()
 
         mDialog->close();
     });
+
+
+    save->setDefault(true);
 
 
     mDialog->exec();
@@ -251,7 +303,6 @@ void MalzemeDelegate::paint(QPainter *painter, const QStyleOptionViewItem &optio
 
     }else{
         painter->setPen(Qt::black);
-
     }
 
 

@@ -58,6 +58,8 @@ private slots:
 
     void save_new();
 
+    bool update_exist();
+
     void on_pushButton_receteSave_clicked();
 
     void on_pushButton_addMalzeme_clicked();
@@ -75,6 +77,14 @@ private slots:
     void on_listView_clicked(const QModelIndex &index);
 
     void on_pushButton_kapat_clicked();
+
+    void on_doubleSpinBox_newFiyat_valueChanged(double arg1);
+
+    void on_pushButton_delRecete_clicked();
+
+    void on_doubleSpinBox_indKarMarji_valueChanged(double arg1);
+
+    void on_doubleSpinBox_indNewFiyat_valueChanged(double arg1);
 
 private:
     Ui::ReceteDialog *ui;
@@ -98,11 +108,16 @@ private:
 
     bool insert(QString collection , QtBsonObject &obj);
 
+    bool update(QString collection , QtBsonObject &filter,QtBsonObject &updateObj);
+
     void CalcFiyat();
 
     void resetKategoriList();
 
     void reinitReceteList();
+    void reinitReceteListFilter(QString filter_);
+
+    void initKategoriFilter();
 };
 
 

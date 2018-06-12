@@ -35,14 +35,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(mongocxx::database* _db , QWidget *parent = 0);
     ~MainWindow();
+
+
+public slots:
+    void showMainWindow(std::string personelOid);
 
 private:
     Ui::MainWindow *ui;
-
-    mongocxx::client* Client;
-    mongocxx::database db;
 
 
 private slots:
@@ -52,6 +53,25 @@ private slots:
 
     void on_pushButton_Personel_clicked();
     void on_pushButton_options_clicked();
+
+    void applicationQuit();
+
+
+
+
+    void on_pushButton_Stok_clicked();
+
+    void on_pushButton_OpenKasa_clicked();
+
+    void on_pushButton_Close_clicked();
+
+    void on_pushButton_Cari_clicked();
+
+    void on_pushButton_ExternalOutGoing_clicked();
+
+private:
+    mongocxx::database *db;
+    bsoncxx::document::value User;
 };
 
 #endif // MAINWINDOW_H

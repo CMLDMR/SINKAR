@@ -78,6 +78,13 @@ public:
         addWidget(widget);
         return widget;
     }
+
+    template<typename T>
+    T* addwidget(){
+        T* widget = new T();
+        addWidget(widget);
+        return widget;
+    }
 };
 
 class VLayout : public QVBoxLayout

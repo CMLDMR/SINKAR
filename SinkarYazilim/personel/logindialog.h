@@ -31,6 +31,12 @@ public:
     explicit LoginDialog(mongocxx::database* _db , QWidget *parent = 0);
     ~LoginDialog();
 
+
+signals:
+    void applicationQuit();
+    void signin();
+    void signSuccessFully(std::string oid);
+
 private slots:
     void on_pushButton_Kapat_clicked();
 

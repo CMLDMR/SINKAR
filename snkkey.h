@@ -15,11 +15,18 @@
 #include <fstream>
 
 
+
+#define TEST
+
 namespace SNKKey {
 
 
-    static std::string dburl{"mongodb://sinkar:sinKarSerikBlD1926@192.168.0.11:27018/?authSource=SINKAR"};
+    static std::string dburl{"mongodb://sinkar:sinKarSerikBlD1926@195.175.200.2:41112/?authSource=SINKAR"};
+    static std::string dbresturl{"mongodb://restClarified_eees-s_d:restClarified_eees-s_d@195.175.200.2:41112/?authSource=REST"};
     static std::string db{"SINKAR"};
+    static std::string dbrest{"REST"};
+
+    static std::string oid{"_id"};
 
 
     namespace Personel {
@@ -70,6 +77,12 @@ namespace SNKKey {
                 static std::string oid{"malzemeid"};
                 static std::string miktar{"miktar"};
             }
+            static std::string deleted{"deleted"};
+            namespace Delete {
+                static bool deleted{true};
+                static bool exist{false};
+            }
+            static std::string indirimliKar{"indirimliKar"};
         }
 
         namespace Kategori {
@@ -81,6 +94,190 @@ namespace SNKKey {
     }
 
 
+    namespace MGirisi {
+        static std::string collection{"mgirisi"};
+        static std::string oid{"_id"};
+        static std::string malzemeoid{"malzemeOid"};
+        static std::string malzemeadi{"malzemeAdi"};
+        static std::string kategroiOid{"kategoriOid"};
+        static std::string kategori{"kategori"};
+        static std::string depo{"depo"};
+        static std::string miktar{"miktar"};
+        static std::string birimi{"birimi"};
+        static std::string birimFiyat{"birimFiyat"};
+        static std::string toplamTutar{"toplamTutar"};
+        static std::string iskontoindirim{"iskontoindirim"};
+        static std::string kdv{"kdv"};
+        static std::string fatura{"fatura"};
+        static std::string girisTipi{"girisTipi"};
+        const static std::string julianDate{"julianDate"};
+        namespace GirisTipi {
+            static std::string malzemeGirisi{"malzemegirisi"};
+            static std::string sevk{"sevk"};
+        }
+        namespace Fatura {
+            static std::string seri{"seri"};
+            static std::string no{"no"};
+            static std::string tarih{"tarih"};
+            static std::string tipi{"tipi"};
+            static std::string firmaoid{"firmaoid"};
+            static std::string firmaCarikod{"firmacariKod"};
+            static std::string firmaadi{"firmaAdi"};
+        }
+    }
+
+
+    namespace Firma {
+        static std::string collection{"firmalar"};
+        static std::string adi{"adi"};
+        static std::string carikod{"carikod"};
+        static std::string oid{"_id"};
+    }
+
+
+    namespace StokMiktar {
+        static std::string collection{"stokmiktari"};
+        static std::string adi{"adi"};
+        static std::string miktar{"mitar"};
+        static std::string birim{"birim"};
+        static std::string depo{"depo"};
+        static std::string malzemeoid{"malzemeoid"};
+    }
+
+    namespace SevkFisi {
+        static std::string collection{"sevkler"};
+        static std::string kaynakDepo{"kaynakDepo"};
+        static std::string hedefDepo{"hedefDepo"};
+        static std::string tarih{"tarih"};
+        static std::string sevkno{"sevkno"};
+        static std::string malzemeler{"malzemeler"};
+        static std::string oid{"_id"};
+        namespace Malzeme {
+            static std::string adi{"adi"};
+            static std::string miktar{"miktar"};
+            static std::string birim{"birim"};
+            static std::string fiyat{"fiyat"};
+        }
+    }
+
+
+    namespace Kasa {
+        static std::string depooid{"depooid"};
+        static std::string ad{"ad"};
+        static std::string oid{"_id"};
+        static std::string collection{"Kasa"};
+    }
+
+    namespace Masa {
+        static std::string kasaoid{"kasaoid"};
+        static std::string ad{"ad"};
+        static std::string siparisoid{"siparioid"};
+        static std::string oid{"_id"};
+        static std::string collection{"Masa"};
+        static std::string durum{"durum"};
+        namespace masaDurum {
+            static std::string kullanimda{"Kullanımda"};
+            static std::string kullanimdadegil{"Kullanımda Değil"};
+        }
+
+
+    }
+
+    namespace Siparis {
+        static std::string collection{"siparis"};
+        namespace siparisList {
+            static std::string receteoid{"receteoid"};
+            static std::string miktar{"miktar"};
+            static std::string index{"index"};
+        }
+        static std::string masaoid{"masaoid"};
+        static std::string siparis{"siparis"};
+        static std::string kasaoid{"kasaoid"};
+        static std::string tarih{"tarih"};
+        static std::string saat{"saat"};
+        static std::string host{"host"};
+
+        static std::string hesap{"hesap"};
+        namespace Hesap {
+            static bool kapali{true};
+            static bool acik{false};
+        }
+
+        namespace Odeme {
+            static std::string nakit{"nakit"};
+            static std::string kredikarti{"krediKarti"};
+            static std::string odenen{"odenen"};
+            static std::string personeloid{"personeloid"};
+            static std::string odemeTarih{"odemeTarih"};
+            static std::string odemeSaat{"odemeSaat"};
+        }
+
+    }
+
+
+
+    namespace Cari {
+        namespace Kisiler {
+            static std::string collection{"Kisiler"};
+            static std::string ad{"ad"};
+            static std::string adres{"adres"};
+            static std::string iletisim{"iletisim"};
+        }
+
+        namespace Hesap {
+            static std::string collection{"cariHesap"};
+            static std::string kisioid{"kisiOid"};
+            static std::string miktar{"miktar"};
+
+            static std::string indirim{"indirim"};
+            namespace INDIRIM {
+                static bool var{true};
+                static bool yok{false};
+            }
+
+            static std::string julianDate{"julianDate"};
+            static std::string saat{"saat"};
+            static std::string odeme{"odeme"};
+            namespace Odeme {
+                static bool odendi{true};
+                static bool odenmedi{false};
+            }
+            static std::string odemeJulianDate{"odemejulianDate"};
+            static std::string odemeSaat{"odemeSaat"};
+            static std::string odemeMiktari{"odemeMiktari"};
+            static std::string odemeMiktariNakit{"odemeMiktariNakit"};
+            static std::string odemeMiktariKredi{"odemeMiktariKredi"};
+            static std::string odemeTipi{"odemeTipi"};
+            namespace ODEMETIPI {
+                static std::string nakit{"nakit"};
+                static std::string krediKarti{"krediKarti"};
+                static std::string karisik{"Karisik"};
+            }
+            const static std::string siparisList{"siparisList"};
+            namespace SIPARISLIST {
+                const static std::string receteoid{"receteoid"};
+                const static std::string miktar{"miktar"};
+                const static std::string index{"index"};
+            }
+            const static std::string kasaoid{"kasaoid"};
+        }
+    }
+
+
+    namespace HariciGider {
+        namespace Kategori {
+            const static std::string kategoriName{"KategoriAdi"};
+            const static std::string collection{"GiderKategori"};
+        }
+
+        namespace Gider {
+            const static std::string collection{"HariciGidercollect"};
+            const static std::string adi{"adi"};
+            const static std::string julianDate{"julianDate"};
+            const static std::string miktar{"miktar"};
+            const static std::string kategorioid{"kategoriOid"};
+        }
+    }
 
 
 

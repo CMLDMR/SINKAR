@@ -12,9 +12,7 @@
 #endif
 
 
-
-#include "../snkkey.h"
-#include "mongoheaders.h"
+#include "dbuser.h"
 
 #include <QStandardItem>
 #include <QStandardItemModel>
@@ -32,12 +30,12 @@ namespace Ui {
 class AyarlarDialog;
 }
 
-class AyarlarDialog : public QDialog
+class AyarlarDialog : public QDialog , public DBUser
 {
     Q_OBJECT
 
 public:
-    explicit AyarlarDialog(mongocxx::database* _db , QWidget *parent = 0);
+    explicit AyarlarDialog(mongocxx::database* _db , bsoncxx::document::value* _user , QWidget *parent = nullptr);
     ~AyarlarDialog();
 
 private slots:
@@ -47,10 +45,12 @@ private slots:
 
     void on_pushButton_recete_clicked();
 
+    void on_pushButton_KasaMasa_clicked();
+
+    void on_pushButton_HariciGiderler_clicked();
+
 private:
     Ui::AyarlarDialog *ui;
-
-    mongocxx::database* db;
 };
 
 #endif // AYARLARDIALOG_H

@@ -88,6 +88,9 @@ private:
 
     QStandardItemModel* malzemeModel;
     MalzemeDelegate* mMalzemeDelegate;
+
+
+    void insertStok(std::string oid , std::string adi, std::string birimi);
 };
 
 

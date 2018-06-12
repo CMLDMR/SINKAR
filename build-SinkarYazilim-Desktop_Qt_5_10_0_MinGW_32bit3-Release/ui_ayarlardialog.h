@@ -16,6 +16,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
@@ -25,16 +26,20 @@ class Ui_AyarlarDialog
 {
 public:
     QVBoxLayout *verticalLayout;
+    QLabel *label;
     QGridLayout *gridLayout;
-    QPushButton *pushButton_malzeme;
     QPushButton *pushButton_depo;
+    QPushButton *pushButton_malzeme;
+    QPushButton *pushButton;
     QPushButton *pushButton_recete;
+    QPushButton *pushButton_KasaMasa;
+    QPushButton *pushButton_HariciGiderler;
 
     void setupUi(QDialog *AyarlarDialog)
     {
         if (AyarlarDialog->objectName().isEmpty())
             AyarlarDialog->setObjectName(QStringLiteral("AyarlarDialog"));
-        AyarlarDialog->resize(334, 118);
+        AyarlarDialog->resize(565, 126);
         QFont font;
         font.setPointSize(11);
         font.setBold(false);
@@ -42,37 +47,85 @@ public:
         AyarlarDialog->setFont(font);
         verticalLayout = new QVBoxLayout(AyarlarDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        gridLayout = new QGridLayout();
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        pushButton_malzeme = new QPushButton(AyarlarDialog);
-        pushButton_malzeme->setObjectName(QStringLiteral("pushButton_malzeme"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        label = new QLabel(AyarlarDialog);
+        label->setObjectName(QStringLiteral("label"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton_malzeme->sizePolicy().hasHeightForWidth());
-        pushButton_malzeme->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(pushButton_malzeme, 0, 1, 1, 1);
+        verticalLayout->addWidget(label);
 
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         pushButton_depo = new QPushButton(AyarlarDialog);
         pushButton_depo->setObjectName(QStringLiteral("pushButton_depo"));
-        sizePolicy.setHeightForWidth(pushButton_depo->sizePolicy().hasHeightForWidth());
-        pushButton_depo->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(pushButton_depo->sizePolicy().hasHeightForWidth());
+        pushButton_depo->setSizePolicy(sizePolicy1);
 
         gridLayout->addWidget(pushButton_depo, 0, 0, 1, 1);
 
+        pushButton_malzeme = new QPushButton(AyarlarDialog);
+        pushButton_malzeme->setObjectName(QStringLiteral("pushButton_malzeme"));
+        sizePolicy1.setHeightForWidth(pushButton_malzeme->sizePolicy().hasHeightForWidth());
+        pushButton_malzeme->setSizePolicy(sizePolicy1);
+
+        gridLayout->addWidget(pushButton_malzeme, 0, 1, 1, 1);
+
+        pushButton = new QPushButton(AyarlarDialog);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        sizePolicy1.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy1);
+        QFont font1;
+        font1.setFamily(QStringLiteral("MS Shell Dlg 2"));
+        font1.setPointSize(12);
+        font1.setBold(false);
+        font1.setItalic(false);
+        font1.setUnderline(true);
+        font1.setWeight(9);
+        pushButton->setFont(font1);
+        pushButton->setStyleSheet(QLatin1String("color: rgb(255, 0, 4);\n"
+"text-decoration: underline;\n"
+"font: 75 12pt \"MS Shell Dlg 2\";\n"
+""));
+
+        gridLayout->addWidget(pushButton, 0, 5, 1, 1);
+
         pushButton_recete = new QPushButton(AyarlarDialog);
         pushButton_recete->setObjectName(QStringLiteral("pushButton_recete"));
-        sizePolicy.setHeightForWidth(pushButton_recete->sizePolicy().hasHeightForWidth());
-        pushButton_recete->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(pushButton_recete->sizePolicy().hasHeightForWidth());
+        pushButton_recete->setSizePolicy(sizePolicy1);
 
         gridLayout->addWidget(pushButton_recete, 0, 2, 1, 1);
+
+        pushButton_KasaMasa = new QPushButton(AyarlarDialog);
+        pushButton_KasaMasa->setObjectName(QStringLiteral("pushButton_KasaMasa"));
+        sizePolicy1.setHeightForWidth(pushButton_KasaMasa->sizePolicy().hasHeightForWidth());
+        pushButton_KasaMasa->setSizePolicy(sizePolicy1);
+
+        gridLayout->addWidget(pushButton_KasaMasa, 0, 3, 1, 1);
+
+        pushButton_HariciGiderler = new QPushButton(AyarlarDialog);
+        pushButton_HariciGiderler->setObjectName(QStringLiteral("pushButton_HariciGiderler"));
+        sizePolicy1.setHeightForWidth(pushButton_HariciGiderler->sizePolicy().hasHeightForWidth());
+        pushButton_HariciGiderler->setSizePolicy(sizePolicy1);
+        pushButton_HariciGiderler->setFlat(false);
+
+        gridLayout->addWidget(pushButton_HariciGiderler, 0, 4, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
 
 
         retranslateUi(AyarlarDialog);
+        QObject::connect(pushButton, SIGNAL(clicked()), AyarlarDialog, SLOT(close()));
+
+        pushButton_HariciGiderler->setDefault(false);
+
 
         QMetaObject::connectSlotsByName(AyarlarDialog);
     } // setupUi
@@ -80,9 +133,16 @@ public:
     void retranslateUi(QDialog *AyarlarDialog)
     {
         AyarlarDialog->setWindowTitle(QApplication::translate("AyarlarDialog", "Dialog", nullptr));
+        label->setText(QApplication::translate("AyarlarDialog", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">Ayarlar</span></p></body></html>", nullptr));
+        pushButton_depo->setText(QApplication::translate("AyarlarDialog", "Depo\n"
+"Ayarlar\304\261", nullptr));
         pushButton_malzeme->setText(QApplication::translate("AyarlarDialog", "Malzemeler", nullptr));
-        pushButton_depo->setText(QApplication::translate("AyarlarDialog", "Depo Ayarlar\304\261", nullptr));
+        pushButton->setText(QApplication::translate("AyarlarDialog", "Kapat", nullptr));
         pushButton_recete->setText(QApplication::translate("AyarlarDialog", "Re\303\247eteler", nullptr));
+        pushButton_KasaMasa->setText(QApplication::translate("AyarlarDialog", "Kasa\n"
+"Masalar", nullptr));
+        pushButton_HariciGiderler->setText(QApplication::translate("AyarlarDialog", "Harici\n"
+"Giderler", nullptr));
     } // retranslateUi
 
 };

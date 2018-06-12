@@ -22,6 +22,8 @@ addMalzemeDialog::addMalzemeDialog(mongocxx::database *_db, QWidget *parent) :
 
     this->refreshKategori();
 
+    this->setWindowTitle("Malzeme Girişi");
+
 }
 
 addMalzemeDialog::~addMalzemeDialog()

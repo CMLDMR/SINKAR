@@ -63,8 +63,6 @@ void DepoDialog::on_pushButton_ekle_clicked()
 void DepoDialog::refreshList()
 {
 
-
-
     auto collection = db->collection(SNKKey::Depo::collection);
 
     try {
@@ -76,12 +74,17 @@ void DepoDialog::refreshList()
         {
             QStandardItem* item = new QStandardItem;
             item->setText(doc[SNKKey::Depo::depoAdi].get_utf8().value.to_string().c_str());
-            item->setData(doc[SNKKey::Depo::oid].get_oid().value.to_string().c_str());
+            item->setData(doc[SNKKey::Depo::oid].get_oid().value.to_string().c_str(),Qt::UserRole);
             model->setItem(row++,0,item);
         }
 
     } catch (mongocxx::exception &e) {
-        std::cout << "Error: " << e.what() << std::endl;
+        QMessageBox msg;
+        msg.setText(QString("Depo List Error: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.setIcon(QMessageBox::Critical);
+        msg.exec();
+        return;
     }
 
 
@@ -95,7 +98,12 @@ void DepoDialog::setNewDepo(std::string newDepoName)
     try {
         doc.append(kvp(SNKKey::Depo::depoAdi,newDepoName));
     } catch (bsoncxx::exception &e) {
-        std::cout << "Depo Adı Ekleme Hatalı: " << e.what() << std::endl;
+        QMessageBox msg;
+        msg.setText(QString("Depo Adı Hatalı: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.setIcon(QMessageBox::Critical);
+        msg.exec();
+        return;
     }
 
 
@@ -105,13 +113,22 @@ void DepoDialog::setNewDepo(std::string newDepoName)
         auto ins = collection.insert_one(doc.view());
         if( !ins )
         {
-            std::cout << "Depo Girilemedi";
+            QMessageBox msg;
+            msg.setText(QString("Depo Girilemedi"));
+            msg.setWindowFlag(Qt::CustomizeWindowHint);
+            msg.setIcon(QMessageBox::Critical);
+            msg.exec();
+            return;
         }else{
-//            std::cout << "Girilen Depo Sayısı " << ins.value().result().inserted_count() << std::endl;
             this->refreshList();
         }
     } catch (mongocxx::exception & e) {
-        std::cout << "insert Error: " << e.what() << std::endl;
+        QMessageBox msg;
+        msg.setText(QString("Depo Girilemedi: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.setIcon(QMessageBox::Critical);
+        msg.exec();
+        return;
     }
 
 
@@ -126,7 +143,12 @@ void DepoDialog::deleteItem(std::string oid)
     try {
         filter.append(kvp(SNKKey::Depo::oid,bsoncxx::oid{oid.c_str()}));
     } catch (bsoncxx::exception &e) {
-        std::cout << "Error: " << e.what() << std::endl;
+        QMessageBox msg;
+        msg.setText(QString("Errro: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.setIcon(QMessageBox::Critical);
+        msg.exec();
+        return;
     }
 
     auto collection = db->collection(SNKKey::Depo::collection);
@@ -176,19 +198,40 @@ void DepoDialog::on_pushButton_delete_clicked()
 {
     QModelIndex index = ui->tableView->currentIndex();
 
-    if( index.row() == -1 )
-    {
+    std::string oid = index.data(Qt::UserRole).toString().toStdString().c_str();
 
+    auto filter = document{};
+
+    try {
+        filter.append(kvp(SNKKey::Kasa::depooid,bsoncxx::oid{oid.c_str()}));
+    } catch (bsoncxx::exception &e) {
         QMessageBox msg;
-        msg.setText("Lütfen Bir Depo Seçiniz");
-        msg.setWindowTitle("UYARI");
-        msg.setIcon(QMessageBox::Warning);
+        msg.setText(QString("Errro: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
         msg.exec();
-
         return;
     }
 
-    std::string oid = index.data(Qt::UserRole).toString().toStdString().c_str();
+
+    try {
+        auto count = db->collection(SNKKey::Kasa::collection).count(filter.view());
+
+        if( count )
+        {
+            QMessageBox msg;
+            msg.setText(QString("Bu Depoya Bağlı Kasa Mecut.\nÖnce Kasayı Siliniz"));
+            msg.setWindowFlag(Qt::CustomizeWindowHint);
+            msg.exec();
+            return;
+        }
+
+    } catch (mongocxx::exception &e) {
+        QMessageBox msg;
+        msg.setText(QString("Errro: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.exec();
+        return;
+    }
 
     this->deleteItem(oid);
 
@@ -198,6 +241,39 @@ void DepoDialog::on_pushButton_delete_clicked()
 void DepoDialog::on_tableView_doubleClicked(const QModelIndex &index)
 {
     std::string oid = index.data(Qt::UserRole).toString().toStdString().c_str();
+
+    auto filter = document{};
+
+    try {
+        filter.append(kvp(SNKKey::Kasa::depooid,bsoncxx::oid{oid.c_str()}));
+    } catch (bsoncxx::exception &e) {
+        QMessageBox msg;
+        msg.setText(QString("Errro: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.exec();
+        return;
+    }
+
+
+    try {
+        auto count = db->collection(SNKKey::Kasa::collection).count(filter.view());
+
+        if( count )
+        {
+            QMessageBox msg;
+            msg.setText(QString("Bu Depoya Bağlı Kasa Mecut.\nÖnce Kasayı Siliniz"));
+            msg.setWindowFlag(Qt::CustomizeWindowHint);
+            msg.exec();
+            return;
+        }
+
+    } catch (mongocxx::exception &e) {
+        QMessageBox msg;
+        msg.setText(QString("Errro: %1").arg(e.what()));
+        msg.setWindowFlag(Qt::CustomizeWindowHint);
+        msg.exec();
+        return;
+    }
 
     this->deleteItem(oid);
 }
